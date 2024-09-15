@@ -406,3 +406,55 @@ Resumen
     Robustez ante fallos: Diseñados para manejar cierres inesperados, devolviendo trabajos a la cola.
 
 
+## X. Paridad desarrollo/producción
+### Mantenga el desarrollo, la puesta en escena y la producción lo más similares posible 
+
+La paridad entre desarrollo y producción es un principio clave en la metodología de las aplicaciones de "doce factores". Básicamente, significa que el entorno en el que desarrollas tu aplicación debe ser lo más similar posible al entorno en el que se ejecutará en producción. Esto evita que surjan problemas inesperados cuando llevas tu aplicación de un entorno a otro (por ejemplo, de tu computadora al servidor).
+
+Aquí te explico de manera clara y con ejemplos cómo se manifiesta este principio, por qué es importante y cómo implementarlo:
+1. Reducir la brecha de tiempo
+
+    Problema: En aplicaciones tradicionales, puede pasar mucho tiempo entre que un desarrollador escribe el código y este se implementa en producción (días o semanas).
+    Solución (12 factores): En una aplicación de doce factores, el código se implementa rápidamente, a veces minutos después de ser escrito. Esto se logra con procesos automatizados de integración y entrega continua (CI/CD).
+
+Ejemplo:
+
+    En una aplicación tradicional, podrías tener que esperar semanas para que los cambios que hiciste en el código lleguen a producción.
+    Con CI/CD (como GitHub Actions o Jenkins), cuando un desarrollador hace un cambio en el código, este pasa por pruebas automáticas y, si todo está bien, se despliega en producción en cuestión de minutos.
+
+2. Reducir la brecha de personal
+
+    Problema: En aplicaciones tradicionales, los desarrolladores escriben el código, pero son los equipos de operaciones los que lo implementan, lo que crea una desconexión entre ambos.
+    Solución (12 factores): Los desarrolladores no solo escriben el código, sino que también son responsables de la implementación. De esta manera, están directamente involucrados en cómo funciona su código en producción.
+
+Ejemplo:
+
+    Tradicionalmente, si algo sale mal en producción, el equipo de operaciones tiene que arreglarlo, y los desarrolladores pueden no estar involucrados.
+    Con las aplicaciones de doce factores, los desarrolladores están involucrados en todo el proceso, desde el desarrollo hasta la puesta en producción, lo que mejora la calidad del código.
+
+3. Reducir la brecha de herramientas
+
+    Problema: A veces los desarrolladores usan diferentes herramientas y tecnologías en sus entornos locales que no coinciden con las de producción. Por ejemplo, pueden usar SQLite en sus máquinas locales y PostgreSQL en producción, lo que puede causar problemas inesperados.
+    Solución (12 factores): Tanto el entorno de desarrollo como el de producción deben usar las mismas herramientas y versiones. Si usas PostgreSQL en producción, también deberías usar PostgreSQL en desarrollo.
+
+Ejemplo:
+
+    Supongamos que en tu entorno de desarrollo usas SQLite porque es más fácil de configurar, pero en producción usas PostgreSQL. En SQLite, podrías no tener problemas, pero en PostgreSQL (que es más complejo), pueden aparecer errores inesperados.
+    La solución sería usar Docker o herramientas como Vagrant para replicar el entorno de producción en tu máquina local, usando las mismas bases de datos, colas, caché, etc.
+
+4. Uso de servicios de respaldo (bases de datos, colas, caché)
+
+    Problema: Los desarrolladores a menudo usan versiones más simples o diferentes servicios de respaldo en desarrollo (como usar memoria local para caché) y versiones más complejas en producción (como Memcached). Esto puede generar errores difíciles de rastrear.
+    Solución (12 factores): Todos los entornos (desarrollo, puesta en escena, producción) deben usar los mismos servicios de respaldo. Si usas Redis en producción, usa Redis también en desarrollo.
+
+Ejemplo:
+
+    En desarrollo, puedes estar usando caché en memoria local y en producción estás usando Redis. Lo que puede funcionar en tu entorno local podría no funcionar igual en producción.
+    Para evitar estos problemas, puedes usar Redis en ambos entornos. Si es difícil instalar Redis localmente, podrías usar herramientas como Docker para hacerlo más sencillo.
+
+Herramientas para asegurar la paridad entre desarrollo y producción
+
+    Docker: Con Docker, puedes crear contenedores que replican exactamente el entorno de producción en tu entorno local. Esto incluye las versiones exactas de bases de datos, sistemas de colas, etc.
+    Vagrant: Crea entornos de desarrollo que imitan tu entorno de producción utilizando máquinas virtuales.
+    Homebrew/apt-get: Estas herramientas facilitan la instalación de servicios como PostgreSQL, Redis, o RabbitMQ en tu máquina local.
+
