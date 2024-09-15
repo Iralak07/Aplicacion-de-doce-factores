@@ -56,4 +56,66 @@ En FinApp, podrías tener esta situación:
     Los usuarios finales están utilizando la versión en producción, que es estable y no contiene los cambios más recientes que se están probando o desarrollando.
 
 
+## II. Dependencias
+
+Declarar y aislar dependencias explícitamente 
+
+Esto significa que, en lugar de asumir que las dependencias estarán disponibles en el sistema en el que se ejecuta tu aplicación, debes especificar todas las dependencias que necesita tu aplicación. Esto se hace creando un archivo o "manifiesto" que lista todas las bibliotecas o herramientas externas.
+
+Ejemplo en Python:
+
+En Python, se utiliza un archivo llamado requirements.txt para declarar todas las dependencias de un proyecto. En este archivo, listamos las bibliotecas que el proyecto necesita, junto con las versiones específicas.
+
+requirements.txt:
+
+        Django==3.2.7
+        requests==2.26.0
+        numpy==1.21.2
+
+Beneficio: Si otro desarrollador o un servidor necesita instalar tu aplicación, lo único que necesita es el archivo requirements.txt y Python. No hay necesidad de adivinar qué bibliotecas adicionales podrían necesitar.
+
+### Aislar las dependencias
+
+El aislamiento de dependencias asegura que tu aplicación no dependa de las bibliotecas instaladas globalmente en el sistema, y que cada proyecto o aplicación tenga su propio conjunto de dependencias. Esto evita conflictos de versiones o dependencias erróneas que puedan estar presentes en el sistema.
+
+Ejemplo en Python:
+
+En Python, una herramienta común para el aislamiento de dependencias es Virtualenv o venv (a partir de Python 3). Con estas herramientas, puedes crear un entorno virtual que actúa como un espacio aislado para las dependencias de tu proyecto.
+        
+        # Crear un entorno virtual en Python
+        python3 -m venv mi_entorno
+        
+        # Activar el entorno virtual
+        source mi_entorno/bin/activate
+        
+        # Instalar las dependencias dentro del entorno virtual
+        pip install -r requirements.txt
+
+
+## III. configuración
+
+### Almacenar la configuración en el entorno. 
+
+El principio de configuración en las "12 Factor App" establece que la configuración de la aplicación debe almacenarse en el entorno, no en el código fuente. Veamos en detalle qué significa este principio y por qué es importante.
+¿Qué es la configuración en una aplicación?
+
+La configuración se refiere a todos los parámetros que pueden variar dependiendo del entorno donde la aplicación se ejecuta. Es decir, los valores que cambian entre desarrollo, pruebas, staging (preproducción) y producción.
+
+Ejemplos de configuración incluyen:
+
+    Credenciales de acceso a servicios externos (API keys, contraseñas de bases de datos, credenciales de AWS o Google Cloud, etc.).
+    Identificadores de recursos como la URL de la base de datos, la dirección de un servidor Redis o Memcached.
+    Parámetros específicos de la implementación, como el nombre de dominio o puerto donde la aplicación está desplegada.
+
+En la filosofía de las 12 Factor App, la configuración que se refiere a valores que pueden variar entre entornos (como producción, desarrollo, pruebas) debe almacenarse en el entorno del sistema (como variables de entorno), no en archivos de configuración dentro del código o dispersos en diferentes formatos y ubicaciones. Esto asegura la seguridad, consistencia y portabilidad de la aplicación. Ahora, veremos cómo este principio se aplica en frameworks como Django, Flask y FastAPI, y cómo gestionar correctamente la configuración.
+
+Configuración Interna vs. Configuración de Entorno
+
+    Configuración Interna:
+        Este tipo de configuración no cambia entre entornos y es parte del funcionamiento de la aplicación. Ejemplos incluyen la configuración de rutas en Rails o cómo se             conectan los módulos de una aplicación en Spring.
+        Django: La configuración de rutas (urls.py) o la definición de vistas no varían según el entorno, y deben permanecer en el código.
+        Flask y FastAPI: La configuración de rutas y la estructura básica de la aplicación también forman parte del código.
+
+    Configuración de Entorno:
+        Se refiere a credenciales, URLs de bases de datos, claves API, y cualquier otro valor que puede cambiar entre los entornos de desarrollo, staging y producción.
 
