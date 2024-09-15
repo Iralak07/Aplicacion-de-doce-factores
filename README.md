@@ -1,5 +1,44 @@
 # Aplicacion de doce factores
 
+## Introduccion
+
+¿Qué es la Metodología de los Doce Factores?
+
+La metodología de los doce factores es un conjunto de prácticas y principios diseñados para crear aplicaciones de software como servicio (SaaS) que son:
+
+    Fáciles de configurar y desplegar: Utiliza formatos declarativos para la configuración, lo que simplifica el proceso para los nuevos desarrolladores que se unen al proyecto.
+    Altamente portables: Mantiene un contrato limpio con el sistema operativo, permitiendo que la aplicación se ejecute en diferentes entornos de forma consistente.
+    Adaptables a la nube: Optimiza las aplicaciones para su ejecución en plataformas en la nube, eliminando la necesidad de gestionar servidores y sistemas físicos.
+    Consistentes entre desarrollo y producción: Minimiza las diferencias entre los entornos de desarrollo y producción para permitir una implementación continua y sin fricciones.
+    Escalables sin complicaciones: Facilita la expansión de la aplicación sin necesidad de cambios significativos en las herramientas, la arquitectura o las prácticas de desarrollo.
+
+¿Por Qué es Importante?
+
+    Automatización de la Configuración:
+        Los formatos declarativos hacen que la configuración de la aplicación sea más simple y menos propensa a errores. Esto reduce el tiempo y el costo para los nuevos desarrolladores, quienes pueden comenzar a trabajar rápidamente sin tener que aprender configuraciones complejas.
+
+    Portabilidad:
+        Las aplicaciones construidas con esta metodología pueden ejecutarse en cualquier entorno que cumpla con los requisitos básicos, lo que facilita el traslado entre diferentes plataformas y servicios sin problemas.
+
+    Optimización para la Nube:
+        Al estar diseñadas para la nube, las aplicaciones se benefician de la escalabilidad y la flexibilidad que ofrecen las plataformas en la nube, eliminando la necesidad de administrar hardware y otros aspectos físicos.
+
+    Consistencia en Desarrollo y Producción:
+        Al mantener la consistencia entre el entorno en el que se desarrolla la aplicación y el entorno en el que se ejecuta en producción, se reduce el riesgo de errores y problemas imprevistos al desplegar nuevas versiones.
+
+    Escalabilidad:
+        Las aplicaciones pueden ampliarse fácilmente para manejar más usuarios o más datos sin necesidad de rediseñar la arquitectura o cambiar las herramientas utilizadas.
+
+Antecedentes
+
+Este enfoque se basa en la experiencia acumulada de desarrollar y gestionar aplicaciones a gran escala, especialmente a través de la plataforma Heroku. El documento que detalla estos principios resume prácticas óptimas observadas en una amplia gama de aplicaciones SaaS, con el objetivo de abordar problemas comunes y ofrecer soluciones prácticas.
+¿Quién Debería Leer Este Documento?
+
+    Desarrolladores: Si estás construyendo aplicaciones que se ejecutan como un servicio, estas prácticas te ayudarán a crear aplicaciones más robustas y eficientes.
+    Ingenieros de Operaciones: Si eres responsable de desplegar o gestionar aplicaciones, entender estos principios te permitirá manejar mejor el ciclo de vida de las aplicaciones y resolver problemas operativos de manera más efectiva.
+
+La metodología de los doce factores es una guía valiosa para cualquier persona involucrada en el desarrollo y la gestión de aplicaciones modernas, proporcionando un marco claro para crear software que sea confiable, escalable y fácil de mantener.
+
 ## I. Base de Código
 ### Definición:
 
@@ -458,3 +497,84 @@ Herramientas para asegurar la paridad entre desarrollo y producción
     Vagrant: Crea entornos de desarrollo que imitan tu entorno de producción utilizando máquinas virtuales.
     Homebrew/apt-get: Estas herramientas facilitan la instalación de servicios como PostgreSQL, Redis, o RabbitMQ en tu máquina local.
 
+
+## XI. Registros
+
+### Trate los registros como flujos de eventos 
+
+Registros como flujos de eventos es un concepto importante en la metodología de las aplicaciones de "doce factores". Básicamente, se refiere a cómo se manejan y procesan los registros (logs) de una aplicación de manera eficiente para poder supervisar su comportamiento y solucionar problemas. Aquí te explico este concepto detalladamente y con ejemplos claros:
+Concepto Clave: Registros como Flujos de Eventos
+
+### ¿Qué son los registros?
+       
+Los registros son eventos generados por una aplicación mientras está en funcionamiento. Estos eventos pueden incluir información como errores, advertencias,             información de depuración y mensajes informativos sobre lo que está haciendo la aplicación en ese momento.
+        Formato: Generalmente, los registros son texto plano, con un evento por línea. Los eventos pueden variar en complejidad y longitud.
+
+¿Cómo se generan y manejan los registros en una aplicación de doce factores?
+        Generación: En lugar de escribir registros en archivos locales, cada proceso de la aplicación escribe sus registros directamente a la salida estándar (stdout) y error estándar (stderr). Esto significa que los registros se generan en tiempo real y se envían a un flujo continuo.
+        
+Ejemplo de generación:
+
+    console.log('Este es un mensaje de información');
+    console.error('Este es un mensaje de error');
+
+No se debe gestionar el almacenamiento de registros desde la aplicación:
+
+    Problema: Si la aplicación intenta manejar su propio almacenamiento de registros (como escribir en archivos en disco), esto puede complicar la gestión, el análisis y la rotación de los archivos de registro.
+    Solución (12 factores): En su lugar, la aplicación debe escribir solo los registros y dejar que el entorno de ejecución maneje el almacenamiento y el enrutamiento.
+
+Manejo de registros en producción:
+
+    Captura y Almacenamiento: En un entorno de producción, los registros de todos los procesos de la aplicación se recopilan y se envían a un sistema de almacenamiento centralizado.
+    Enrutadores de registros: Herramientas como Logplex (usado en Heroku), Fluentd, o Logstash pueden capturar estos registros, agruparlos y enviarlos a diversos destinos de almacenamiento y análisis.
+    Ejemplo de uso de Fluentd:
+        Fluentd puede tomar registros de stdout y enviarlos a una base de datos, un archivo o un sistema de análisis en tiempo real como Splunk.
+
+Visualización y análisis de registros:
+
+    Propósito: Los sistemas de análisis de registros permiten inspeccionar eventos específicos, graficar tendencias y configurar alertas.
+    Ejemplos de herramientas:
+        Splunk: Permite buscar eventos específicos y generar alertas. Por ejemplo, puedes configurar una alerta para que te notifique si el número de errores supera un umbral específico.
+        Hadoop/Hive: Permite almacenar grandes volúmenes de datos de registros y realizar análisis complejos sobre ellos.
+
+
+
+## XII. Procesos administrativos
+### Ejecute tareas de administración/gestión como procesos únicos 
+
+Formación de procesos se refiere al conjunto de procesos que una aplicación utiliza para llevar a cabo sus tareas principales mientras está en ejecución. Vamos a desglosar esto con ejemplos claros y explicaciones sencillas.
+Procesos Habituales vs. Procesos Administrativos
+
+    Procesos Habituales:
+        Estos son los procesos que mantienen la aplicación funcionando continuamente.
+        Ejemplo: Un servidor web que maneja solicitudes de los usuarios.
+
+    Procesos Administrativos:
+        Estos son procesos puntuales que los desarrolladores ejecutan para tareas especiales o mantenimiento.
+        Ejemplo: Actualizar la base de datos, ejecutar scripts de mantenimiento, o acceder a una consola para depuración.
+
+    
+    ervidor Web en Python: En Django, el servidor se inicia con:
+
+        python manage.py runserver
+
+#### Importancia de la Consistencia
+
+Para asegurar que los procesos administrativos funcionen correctamente, deben ejecutarse en un entorno idéntico al de los procesos principales. Esto significa:
+
+Misma Configuración y Dependencias:
+    Si tu aplicación web en Ruby usa Bundler para gestionar gemas (librerías), cualquier tarea administrativa también debe usar Bundler para asegurar que las mismas versiones de las librerías estén presentes.
+        
+Ejemplo: Si el proceso web usa bundle exec thin start, entonces las migraciones deben usar bundle exec rake db:migrate.
+
+Misma Base de Código:
+    El código de los procesos administrativos debe estar sincronizado con el código de los procesos principales. No se deben usar versiones diferentes para evitar problemas.
+
+
+#### Resumen
+
+Formación de Procesos: Se refiere a los diferentes tipos de procesos utilizados por una aplicación.
+Procesos Habituales: Mantenienen la aplicación en funcionamiento continuo.
+Procesos Administrativos: Se utilizan para tareas específicas como migraciones o depuración.
+Consistencia: Asegúrate de que los procesos administrativos se ejecuten en el mismo entorno y con la misma configuración que los procesos principales.
+    Ejecución: En desarrollo, los procesos administrativos se ejecutan localmente, mientras que en producción se puede hacer mediante SSH o herramientas especializadas.
