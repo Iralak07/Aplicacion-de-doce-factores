@@ -1,98 +1,100 @@
-# Aplicacion de doce factores
+# Aplicación de Doce Factores
 
-## Introduccion
+## Introducción
 
-¿Qué es la Metodología de los Doce Factores?
+### ¿Qué es la Metodología de los Doce Factores?
 
 La metodología de los doce factores es un conjunto de prácticas y principios diseñados para crear aplicaciones de software como servicio (SaaS) que son:
 
-    Fáciles de configurar y desplegar: Utiliza formatos declarativos para la configuración, lo que simplifica el proceso para los nuevos desarrolladores que se unen al proyecto.
-    Altamente portables: Mantiene un contrato limpio con el sistema operativo, permitiendo que la aplicación se ejecute en diferentes entornos de forma consistente.
-    Adaptables a la nube: Optimiza las aplicaciones para su ejecución en plataformas en la nube, eliminando la necesidad de gestionar servidores y sistemas físicos.
-    Consistentes entre desarrollo y producción: Minimiza las diferencias entre los entornos de desarrollo y producción para permitir una implementación continua y sin fricciones.
-    Escalables sin complicaciones: Facilita la expansión de la aplicación sin necesidad de cambios significativos en las herramientas, la arquitectura o las prácticas de desarrollo.
+- **Fáciles de configurar y desplegar**: Utiliza formatos declarativos para la configuración, lo que simplifica el proceso para los nuevos desarrolladores que se unen al proyecto.
+- **Altamente portables**: Mantiene un contrato limpio con el sistema operativo, permitiendo que la aplicación se ejecute en diferentes entornos de forma consistente.
+- **Adaptables a la nube**: Optimiza las aplicaciones para su ejecución en plataformas en la nube, eliminando la necesidad de gestionar servidores y sistemas físicos.
+- **Consistentes entre desarrollo y producción**: Minimiza las diferencias entre los entornos de desarrollo y producción para permitir una implementación continua y sin fricciones.
+- **Escalables sin complicaciones**: Facilita la expansión de la aplicación sin necesidad de cambios significativos en las herramientas, la arquitectura o las prácticas de desarrollo.
 
-¿Por Qué es Importante?
+### ¿Por Qué es Importante?
 
-    Automatización de la Configuración:
-        Los formatos declarativos hacen que la configuración de la aplicación sea más simple y menos propensa a errores. Esto reduce el tiempo y el costo para los nuevos desarrolladores, quienes pueden comenzar a trabajar rápidamente sin tener que aprender configuraciones complejas.
+- **Automatización de la Configuración**: Los formatos declarativos hacen que la configuración de la aplicación sea más simple y menos propensa a errores. Esto reduce el tiempo y el costo para los nuevos desarrolladores, quienes pueden comenzar a trabajar rápidamente sin tener que aprender configuraciones complejas.
 
-    Portabilidad:
-        Las aplicaciones construidas con esta metodología pueden ejecutarse en cualquier entorno que cumpla con los requisitos básicos, lo que facilita el traslado entre diferentes plataformas y servicios sin problemas.
+- **Portabilidad**: Las aplicaciones construidas con esta metodología pueden ejecutarse en cualquier entorno que cumpla con los requisitos básicos, lo que facilita el traslado entre diferentes plataformas y servicios sin problemas.
 
-    Optimización para la Nube:
-        Al estar diseñadas para la nube, las aplicaciones se benefician de la escalabilidad y la flexibilidad que ofrecen las plataformas en la nube, eliminando la necesidad de administrar hardware y otros aspectos físicos.
+- **Optimización para la Nube**: Al estar diseñadas para la nube, las aplicaciones se benefician de la escalabilidad y la flexibilidad que ofrecen las plataformas en la nube, eliminando la necesidad de administrar hardware y otros aspectos físicos.
 
-    Consistencia en Desarrollo y Producción:
-        Al mantener la consistencia entre el entorno en el que se desarrolla la aplicación y el entorno en el que se ejecuta en producción, se reduce el riesgo de errores y problemas imprevistos al desplegar nuevas versiones.
+- **Consistencia en Desarrollo y Producción**: Al mantener la consistencia entre el entorno en el que se desarrolla la aplicación y el entorno en el que se ejecuta en producción, se reduce el riesgo de errores y problemas imprevistos al desplegar nuevas versiones.
 
-    Escalabilidad:
-        Las aplicaciones pueden ampliarse fácilmente para manejar más usuarios o más datos sin necesidad de rediseñar la arquitectura o cambiar las herramientas utilizadas.
+- **Escalabilidad**: Las aplicaciones pueden ampliarse fácilmente para manejar más usuarios o más datos sin necesidad de rediseñar la arquitectura o cambiar las herramientas utilizadas.
 
-Antecedentes
+### Antecedentes
 
 Este enfoque se basa en la experiencia acumulada de desarrollar y gestionar aplicaciones a gran escala, especialmente a través de la plataforma Heroku. El documento que detalla estos principios resume prácticas óptimas observadas en una amplia gama de aplicaciones SaaS, con el objetivo de abordar problemas comunes y ofrecer soluciones prácticas.
-¿Quién Debería Leer Este Documento?
 
-    Desarrolladores: Si estás construyendo aplicaciones que se ejecutan como un servicio, estas prácticas te ayudarán a crear aplicaciones más robustas y eficientes.
-    Ingenieros de Operaciones: Si eres responsable de desplegar o gestionar aplicaciones, entender estos principios te permitirá manejar mejor el ciclo de vida de las aplicaciones y resolver problemas operativos de manera más efectiva.
+### ¿Quién Debería Leer Este Documento?
+
+- **Desarrolladores**: Si estás construyendo aplicaciones que se ejecutan como un servicio, estas prácticas te ayudarán a crear aplicaciones más robustas y eficientes.
+- **Ingenieros de Operaciones**: Si eres responsable de desplegar o gestionar aplicaciones, entender estos principios te permitirá manejar mejor el ciclo de vida de las aplicaciones y resolver problemas operativos de manera más efectiva.
 
 La metodología de los doce factores es una guía valiosa para cualquier persona involucrada en el desarrollo y la gestión de aplicaciones modernas, proporcionando un marco claro para crear software que sea confiable, escalable y fácil de mantener.
 
-## I. Base de Código
-### Definición:
 
-Una base de código es esencialmente el conjunto de archivos fuente que constituyen tu aplicación. Estos archivos están versionados y controlados en sistemas de control de versiones como Git, Mercurial o Subversion. La base de código es única para cada aplicación, aunque esa aplicación puede tener múltiples "implementaciones" (o versiones activas) en diferentes entornos.
-Ejemplo:
+## I. Base de Código
+
+### Definición
+
+Una base de código es el conjunto de archivos fuente que constituyen tu aplicación. Estos archivos están versionados y controlados en sistemas de control de versiones como Git, Mercurial o Subversion. La base de código es única para cada aplicación, aunque esa aplicación puede tener múltiples "implementaciones" (o versiones activas) en diferentes entornos.
+
+### Ejemplo
 
 Imagina que tienes una aplicación web llamada FinApp que obtiene y muestra datos financieros. Esta aplicación tiene una base de código que incluye:
 
-    Archivos Python para el backend.
-    Archivos JavaScript para el frontend.
-    Archivos de configuración para el entorno de desarrollo.
+- Archivos Python para el backend.
+- Archivos JavaScript para el frontend.
+- Archivos de configuración para el entorno de desarrollo.
 
 Todos estos archivos se rastrean en un repositorio de Git que sirve como la "base de código" de la aplicación FinApp.
 
-Una base de código, múltiples implementaciones
+### Una Base de Código, Múltiples Implementaciones
 
-Cada aplicación tiene una sola base de código, pero puede haber múltiples implementaciones o instancias de esa aplicación que estén en diferentes entornos, como:
+Cada aplicación tiene una sola base de código, pero puede haber múltiples implementaciones o instancias de esa aplicación en diferentes entornos, como:
 
-    Desarrollo: Donde los programadores trabajan en nuevas funciones y correcciones.
-    Pruebas o Staging: Donde el equipo de control de calidad prueba la aplicación antes de lanzarla al público.
-    Producción: El entorno donde los usuarios finales interactúan con la aplicación.
+- **Desarrollo**: Donde los programadores trabajan en nuevas funciones y correcciones.
+- **Pruebas o Staging**: Donde el equipo de control de calidad prueba la aplicación antes de lanzarla al público.
+- **Producción**: El entorno donde los usuarios finales interactúan con la aplicación.
 
-Ejemplo:
+#### Ejemplo
 
 Volviendo a FinApp:
 
-    Los desarrolladores pueden trabajar en su entorno local con una copia de la base de código (versión de desarrollo).
-    La aplicación puede estar desplegada en un entorno de pruebas donde los testers validan que todo funcione correctamente antes de lanzarla a producción.
-    Finalmente, esa misma base de código se despliega en un entorno de producción, donde los usuarios finales pueden acceder a la aplicación en línea.
+- Los desarrolladores pueden trabajar en su entorno local con una copia de la base de código (versión de desarrollo).
+- La aplicación puede estar desplegada en un entorno de pruebas donde los testers validan que todo funcione correctamente antes de lanzarla a producción.
+- Finalmente, esa misma base de código se despliega en un entorno de producción, donde los usuarios finales pueden acceder a la aplicación en línea.
 
 Aunque hay diferentes versiones activas de la aplicación en desarrollo, pruebas y producción, todas estas instancias comparten la misma base de código.
-Una sola aplicación por base de código
 
-    Regla: Si tienes una aplicación, debes tener solo una base de código. Esto significa que cada aplicación debe tener su propio repositorio.
-    Violación: Si varias aplicaciones utilizan el mismo código, no estás siguiendo el principio de una base de código por aplicación. Por ejemplo, si una parte del código se comparte entre dos aplicaciones diferentes, ese código debería extraerse a una biblioteca común y manejarse como una dependencia.
+### Una Sola Aplicación por Base de Código
 
-Ejemplo de violación:
+- **Regla**: Si tienes una aplicación, debes tener solo una base de código. Esto significa que cada aplicación debe tener su propio repositorio.
+- **Violación**: Si varias aplicaciones utilizan el mismo código, no estás siguiendo el principio de una base de código por aplicación. Por ejemplo, si una parte del código se comparte entre dos aplicaciones diferentes, ese código debería extraerse a una biblioteca común y manejarse como una dependencia.
+
+#### Ejemplo de Violación
 
 Imagina que creas otra aplicación llamada UserApp que también utiliza el mismo código para autenticación que FinApp. Si copias el código de autenticación en ambas aplicaciones, estarías violando este principio. En lugar de duplicar el código, lo correcto sería crear una biblioteca común (una librería de autenticación) y que ambas aplicaciones dependan de esa librería.
-Versiones de la base de código en diferentes implementaciones
+
+### Versiones de la Base de Código en Diferentes Implementaciones
 
 Cada entorno puede tener una versión diferente del código activo:
 
-    Los desarrolladores locales pueden tener algunos cambios que no están en pruebas o producción.
-    El entorno de pruebas puede tener algunos cambios que aún no han llegado a producción.
-    El entorno de producción puede tener una versión más estable, sin los últimos cambios.
+- Los desarrolladores locales pueden tener algunos cambios que no están en pruebas o producción.
+- El entorno de pruebas puede tener algunos cambios que aún no han llegado a producción.
+- El entorno de producción puede tener una versión más estable, sin los últimos cambios.
 
-Ejemplo:
+#### Ejemplo
 
 En FinApp, podrías tener esta situación:
 
-    Un desarrollador ha realizado cambios para una nueva funcionalidad, pero esos cambios solo están presentes en su entorno local.
-    El equipo de control de calidad está probando una versión de la aplicación que tiene algunos cambios que aún no están en producción.
-    Los usuarios finales están utilizando la versión en producción, que es estable y no contiene los cambios más recientes que se están probando o desarrollando.
+- Un desarrollador ha realizado cambios para una nueva funcionalidad, pero esos cambios solo están presentes en su entorno local.
+- El equipo de control de calidad está probando una versión de la aplicación que tiene algunos cambios que aún no están en producción.
+- Los usuarios finales están utilizando la versión en producción, que es estable y no contiene los cambios más recientes que se están probando o desarrollando.
+
 
 
 ## II. Dependencias
